@@ -1,0 +1,131 @@
+# Paws & Claws: Adding a New Feature with OpenHands
+# This demo shows an AI agent adding Pet Grooming Services to an existing pet store.
+#
+# Prerequisites:
+#   - demorec installed (pip install demorec)
+#   - The petstore-frontend repo checked out with both branches available
+#   - npm dependencies installed
+#
+# Run: demorec record demo/frontend-feature-demo.demorec
+
+Output demo/frontend-feature-demo.mp4
+Set Width 1280
+Set Height 720
+
+# @voice edge:jenny
+
+# ─────────────────────────────────────
+# ACT 1: Show the existing pet store
+# ─────────────────────────────────────
+
+@mode terminal
+Set Theme "Dracula"
+
+# @narrate:before "Let's start with our existing Paws and Claws pet store website."
+
+Type "cd petstore-frontend && git checkout main"
+Enter
+Sleep 1s
+
+Type "npm run dev -- --port 3000 &"
+Enter
+Sleep 3s
+
+@mode browser
+
+# @narrate:before "Here's our pet store. It has categories for dogs, cats, birds, and fish."
+
+Navigate "http://localhost:3000"
+Sleep 3s
+
+Scroll "down" "400"
+Sleep 2s
+
+# @narrate:after "Customers can browse pets, filter by category, and add them to their cart."
+
+Scroll "down" "400"
+Sleep 2s
+
+# ─────────────────────────────────────
+# ACT 2: The feature request
+# ─────────────────────────────────────
+
+@mode terminal
+
+# @narrate:before "Now, the business wants to add a new service: pet grooming. Let's ask OpenHands to build this feature."
+
+Type "# Business request: Add a Pet Grooming Services section"
+Enter
+Sleep 1s
+Type "# with service cards, filtering by pet type, and Book Now buttons"
+Enter
+Sleep 2s
+
+# ─────────────────────────────────────
+# ACT 3: Show the feature branch diff
+# ─────────────────────────────────────
+
+# @narrate:before "OpenHands created a feature branch with all the changes. Let's look at what was built."
+
+Type "git checkout feature/add-grooming-services"
+Enter
+Sleep 1s
+
+Type "git diff --stat main"
+Enter
+Sleep 2s
+
+# @narrate:after "Five files changed: new grooming component, data, styles, and updates to the header and app."
+
+Sleep 2s
+
+# ─────────────────────────────────────
+# ACT 4: Preview the new feature
+# ─────────────────────────────────────
+
+@mode browser
+
+# @narrate:before "Let's see the result in the browser."
+
+Navigate "http://localhost:3000"
+Sleep 2s
+
+# @narrate:before "Notice the new purple Grooming button in the navigation."
+
+Highlight "button.grooming-nav"
+Sleep 2s
+Unhighlight "button.grooming-nav"
+
+Click "button.grooming-nav"
+Sleep 2s
+
+# @narrate:after "A complete grooming services section with six service packages, pricing, and Book Now buttons."
+
+Sleep 2s
+
+Scroll "down" "200"
+Sleep 2s
+
+# @narrate:after "The most popular services are highlighted, and you can filter by pet type."
+
+Sleep 3s
+
+# ─────────────────────────────────────
+# ACT 5: Code review
+# ─────────────────────────────────────
+
+@mode terminal
+
+# @narrate:before "Finally, OpenHands reviews its own code, catching accessibility issues and suggesting design system improvements."
+
+Type "git diff main -- src/components/GroomingServices.jsx | head -40"
+Enter
+Sleep 3s
+
+# @narrate:after "Clean, well-structured components following the existing patterns. The code review flagged the alert dialog as a UX anti-pattern and suggested promoting hardcoded colors to CSS variables."
+
+Sleep 3s
+
+# @narrate:after "That's how OpenHands helps frontend developers: take an existing codebase, add a polished new feature, preview it in the browser, and review the code. All from a single conversation."
+
+Sleep 2s

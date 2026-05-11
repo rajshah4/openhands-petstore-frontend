@@ -1,6 +1,6 @@
-import { ShoppingCart } from 'lucide-react';
+import { ShoppingCart, Scissors } from 'lucide-react';
 
-export default function Header({ cartCount, onCartClick, activeCategory, onCategoryChange }) {
+export default function Header({ cartCount, onCartClick, activeCategory, onCategoryChange, onGroomingClick }) {
   return (
     <header className="header">
       <div className="container header-inner">
@@ -19,6 +19,10 @@ export default function Header({ cartCount, onCartClick, activeCategory, onCateg
               {cat}
             </button>
           ))}
+          <button className="nav-link grooming-nav" onClick={onGroomingClick}>
+            <Scissors size={14} style={{ marginRight: 4, verticalAlign: 'middle' }} />
+            Grooming
+          </button>
         </nav>
 
         <button className="cart-btn" onClick={onCartClick}>
