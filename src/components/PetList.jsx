@@ -1,10 +1,17 @@
 import { pets, categories } from '../data/pets';
 import PetCard from './PetCard';
+import BudgetFilter from './BudgetFilter';
+import { filterPets } from '../utils/filterPets';
 
-export default function PetList({ activeCategory, onCategoryChange, onAddToCart }) {
-  const filtered = activeCategory
-    ? pets.filter((p) => p.category === activeCategory)
-    : pets;
+export default function PetList({
+  activeCategory,
+  onCategoryChange,
+  onAddToCart,
+  maxBudget,
+  onBudgetChange,
+  maxPrice,
+}) {
+  const filtered = filterPets(pets, { activeCategory, maxBudget });
 
   return (
     <section className="pets-section">
@@ -33,10 +40,20 @@ export default function PetList({ activeCategory, onCategoryChange, onAddToCart 
           ))}
         </div>
 
+        <BudgetFilter
+          maxBudget={maxBudget}
+          onChange={onBudgetChange}
+          maxPrice={maxPrice}
+        />
+
         <div className="pets-grid">
-          {filtered.map((pet) => (
-            <PetCard key={pet.id} pet={pet} onAddToCart={onAddToCart} />
-          ))}
+          {filtered.length === 0 ? (
+            <p className="pets-empty">No pets match your budget. Try increasing the maximum adoption fee.</p>
+          ) : (
+            filtered.map((pet) => (
+              <PetCard key={pet.id} pet={pet} onAddToCart={onAddToCart} />
+            ))
+          )}
         </div>
       </div>
     </section>

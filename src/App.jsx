@@ -1,16 +1,23 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useMemo } from 'react';
 import Header from './components/Header';
 import Hero from './components/Hero';
 import CategoryGrid from './components/CategoryGrid';
 import PetList from './components/PetList';
 import CartSidebar from './components/CartSidebar';
 import Footer from './components/Footer';
+import { pets } from './data/pets';
 
 export default function App() {
   const [activeCategory, setActiveCategory] = useState(null);
   const [cartItems, setCartItems] = useState([]);
   const [cartOpen, setCartOpen] = useState(false);
+  const [maxBudget, setMaxBudget] = useState(null);
   const petsRef = useRef(null);
+
+  const maxPrice = useMemo(
+    () => pets.reduce((m, p) => Math.max(m, p.price), 0),
+    []
+  );
 
   const handleAddToCart = (pet) => {
     setCartItems((prev) => [...prev, pet]);
@@ -51,6 +58,9 @@ export default function App() {
           activeCategory={activeCategory}
           onCategoryChange={handleCategoryChange}
           onAddToCart={handleAddToCart}
+          maxBudget={maxBudget}
+          onBudgetChange={setMaxBudget}
+          maxPrice={maxPrice}
         />
       </div>
 
